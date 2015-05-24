@@ -1,0 +1,7 @@
+<section id='formPubli'>
+	<form action="{% if publications is defined %} {{ path("resoma_publication_update", {"publication": publications.id}) }} 
+	   			  {% else %} {{ path("resoma_liste_add") }} {% endif %}"" method="post" {{ form_enctype(form) }}>
+	     		  {{ form_widget(form) }}
+	    <input type="submit" class="btn btn-primary" value="Ajouter" id='boutonPubli' />
+	</form>
+</section>

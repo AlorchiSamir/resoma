@@ -1,0 +1,4 @@
+services:
+    resoma_notification.notificateur:
+        class: Resoma\NotificationBundle\Notificateur\Notificateur
+        arguments: [@doctrine]

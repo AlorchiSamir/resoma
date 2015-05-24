@@ -1,0 +1,4 @@
+services:
+    resoma_publication.listeur:
+        class: Resoma\PublicationBundle\Listeur\Listeur
+        arguments: [@doctrine]

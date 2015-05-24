@@ -1,0 +1,10 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}{{ liste.nom }}{% endblock %}
+
+{% block contenu %}
+		<section id='zonePubli'>
+			<h1>#{{ liste.nom }}</h1>
+			{% include 'ResomaPublicationBundle:Publication:read.html.twig' with {'publications' : publications, 'self' : false, 'user' : null, 'aside' : false } %}
+		</section>
+{% endblock %}

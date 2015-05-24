@@ -1,0 +1,434 @@
+/* Barre navigation */
+
+#barre{	
+	width: 100%;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	padding-top: 10px;
+	height: 35px;
+	background: green;
+	box-shadow: 0px 3px 2px #000;
+}
+
+#barre a{
+	display: inline-block;
+	color: #fff;
+	text-decoration: none;		
+}
+
+#barre li{
+	width: 120px;
+	padding-left: 10px;
+}
+
+#barre li:first-child{
+	width: 20px;
+}
+
+#barre li:last-child{
+	width: 20px;	
+}
+
+#barre img, .miniAvatar{
+	position: relative;
+	top: 3px;
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+}
+
+#barre ul{
+	padding: 0;
+	margin: 0;
+	height: 20px;
+}
+
+#barre li{
+	display: inline-block;
+}
+
+/* Publication */
+
+#publication{
+	background: #fff;	
+	margin-bottom: 5px;
+}
+
+#publication header{
+	padding: 1px;
+	background-color: green;
+}
+
+#publication section{
+	padding: 5px 5px 5px 25px;
+}
+
+#publication footer{
+	border-top: 1px black dotted;
+	background: #eee;
+	padding: 5px 10px 10px 25px;
+}
+
+#publication h3{
+	display: inline-block;
+	width: 500px;
+	text-align: center;
+	color: #fff;
+	font-size: 18px;
+	padding: 0;
+	margin: 0;
+}
+
+#publication h3 a{
+	text-decoration: none;
+	color: #fff;
+}
+
+#textePubli{
+	padding: 5px 5px 5px 0px;
+}
+
+#textePubli, #datePubli{
+	margin: 0;
+}
+
+#boutonAuteur{
+	float: right;
+	padding: 2px;
+}
+
+#publication #auteur{
+	display: inline-block;	
+	padding: 2px 5px 5px 5px;
+	width: 200px;
+	text-decoration: none;
+	color: #fff;
+}
+
+.liste{
+	font-size: 11px;
+}
+
+#commentaire{
+	border: 1px solid #ddd;
+	background: #ccc;	
+	margin-bottom: 5px;
+	padding: 5px;
+}
+
+#commentaires{
+	margin: 0 0 20px 50px;
+	padding: 5px;
+	background: #fff;
+}
+
+#datePubli{
+	margin-left: 500px;
+	font-size: 9px;
+	font-style: italic;
+	text-align: right;
+}
+
+#publication .image{
+	padding: 5px 0 0 0px;
+	width: 250px;
+	height: 250px;
+}
+
+#publication audio{
+	padding: 5px 0 0 0px;
+}
+
+#commentaire #auteur{
+	display: inline-block;
+	position: relative;
+	background-color: green;
+	padding: 2px;
+	width: 150px;
+	text-decoration: none;
+	color: #fff;
+}
+
+#auteur span{
+}
+
+
+.delete{
+	
+	background: red;
+	color: #fff;
+	width: 15px;
+	height: 15px;
+	padding: 1px;
+	font-size: 7px;
+}
+
+#zonePublicationOne{
+	margin-top: 70px;
+}
+
+/* Formulaire publication */
+
+#zonePublication{
+	background: #fff;
+	margin: 10px 0 20px 0;
+	padding: 5px;
+}
+
+#zonePublication button{
+	display: inline-block;
+}
+
+#formPubli textarea{
+	width: 500px;
+	margin-top: 5px;
+}
+
+#formPubli form{
+	display: inline-block;
+}
+
+#formPubli select{
+	text-transform: uppercase;
+}
+
+#formPubli label, #formImage label, #formCommentaire label, #formUpdate label{
+	display: inline-block;
+	width: 70px;
+	font-size: 11px;
+}
+
+#formCommentaire{
+	background-color: #fff;
+	padding: 5px 5px 5px 5px;
+	margin-bottom: 5px;
+}
+
+#formCommentaire label{
+	display: none;
+}
+
+#formCommentaire textarea, #formCommentaire input[type='submit']{
+	width: 500px;
+}
+
+#formUpdate{
+	background-color: #fff;
+	padding: 5px 5px 5px 5px;
+ 	margin: 0 0 10px 100px;
+}
+
+#formPubli, #formImage{
+	margin-top: 10px;
+}
+
+#publier, #publierMedia{
+	width: 45%;
+	background-color: green;
+	color: #fff;
+	border: none;
+	line-height: 25px;
+}
+
+#zonePublication{
+	width: 600px;
+	display: inline-block;
+}
+
+#imagePublication{
+	width: 300px;
+	display: inline-block;
+}
+
+.abonnement, .desabonnement{
+	margin-top: 20px;
+	width: 200px;
+	line-height: 50px;
+	background: green;
+	color: #fff;
+	display: block;
+	border-radius: 10px;
+	border: 2px #fff solid;
+	text-align: center;
+	text-decoration: none;
+	float: left;
+}
+
+#imgAbo{
+	width: 100px;
+	height: 100px;
+	margin-top: 20px;
+	float: left;
+	margin-right: 50px;
+}
+
+#zoneAbo{
+	display: inline-block;
+}
+
+.resultat{
+	display: block;
+	width: 100px;
+	line-height: 20px;
+}
+
+#results{
+	border: 1px grey solid;
+	width: 146px;
+	margin-left: 70px;
+}
+
+#contenu{
+	margin-top: 50px;
+}
+
+/* Notifications */
+
+#nombreNotif{
+	display: inline-block;
+	position: relative;
+	top: 9px;
+	right: 10px;
+	background-color: red;
+	border-radius: 20px;
+	color: #fff;
+	line-height: 15px;
+	width: 15px;
+	font-size: 12px;
+	text-align:  center;
+	padding: 1px;
+	border: 1px #fff solid;
+}
+
+#zoneNotif{
+	background-color: #fff;
+	margin-top: 80px;
+	padding: 10px;
+}
+
+/* Parametre */
+
+#zoneParametre{
+	background: #fff;
+	margin-top: 70px;
+	padding: 10px;
+}
+
+#zoneParametre label{
+	display: inline-block;
+	width: 100px;
+}
+
+#zoneParametre h2{
+	margin: 0 0 10px 0;
+}
+
+#zoneDescription{
+	background: #fff;
+}
+
+#zoneDescription p{
+	margin: 0;
+	padding: 5px;
+}
+
+/* Aside Utilisateurs */
+
+aside{
+	padding: 5px;
+	width: 120px;
+	position: fixed;
+	top: 45px;
+	left: 0;
+	z-index: 1;
+	background: #fff;
+	border: 1px solid #888;
+}
+
+#zoneUser{
+	padding-bottom: 5px;
+	border-bottom: 1px solid #888;
+}
+
+#zoneListe{
+	padding: 5px 0 5px 0;
+}
+
+#zoneUser a, #zoneListe a{
+	display: inline-block;
+	text-decoration: none;
+	width: 100%;
+}
+
+#zoneUser a:hover{
+	background: #ddd;
+}
+
+#zoneUser h3, #zoneListe h3{
+	font-size: 15px;
+	margin: 0;
+}
+
+#zoneUser #username, #zoneListe a{
+	display: inline-block;
+	width: 60px;
+	font-size: 13px;
+}
+
+#zoneUser input, #zoneListe input{
+	width: 100px;
+}
+
+#lastConnexion{
+	font-size: 10px;
+}
+
+/* Chat */
+
+#zoneChat{
+	background: #fff;
+	margin-top: 70px;
+	padding: 5px 5px 5px 15px;
+}
+
+#zoneMessage{
+	padding-bottom: 10px;
+	border-bottom: 1px black dotted;
+}
+
+#formChat{
+	padding: 5px 5px 5px 0;
+}
+
+#formChat input[type='text']{
+	width: 400px;
+}
+
+.message p{
+	margin: 0;
+}
+
+.message p:hover{
+	background: #ccc;
+}
+
+.pseudoMessage{
+	display: inline-block;
+	width: 70px;
+	font-size: 12px;
+}
+
+.texteMessage{
+	display: inline-block;
+	border-left: 1px grey solid;
+	padding-left: 10px;
+	font-style: italic;
+	width: 700px;
+}
+
+.dateMessage{
+	font-size: 12px;
+	font-style: italic;
+}

@@ -1,0 +1,19 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}{% if nombreNotif > 0 %}({{ nombreNotif }}) {% endif %}Resoma{% endblock %}
+
+{% block contenu %}
+	{{ include('ResomaProfilBundle:Profil:publier.html.twig') }}
+	<aside id='allPubli'>
+		<h1>Dernières publications</h1>
+		{{ render(controller("ResomaPublicationBundle:Publication:read", {'user' : 'all', 'aside' : true})) }}				
+	</aside>
+	<section id='zonePubli'>
+		<h1>Publications</h1>
+		{{ include('ResomaPublicationBundle:Publication:tri.html.twig') }}
+		<div id='zoneTri'>
+			{{ render(controller("ResomaPublicationBundle:Publication:read", {'user' : null})) }}
+		</div>		
+	</section>
+{% endblock %}
+

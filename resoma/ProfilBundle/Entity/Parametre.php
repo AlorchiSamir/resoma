@@ -1,0 +1,186 @@
+<?php
+
+namespace Resoma\ProfilBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Parametre
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Resoma\ProfilBundle\Entity\ParametreRepository")
+ */
+class Parametre
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+    * @ORM\ManyToOne(targetEntity="Resoma\UserBundle\Entity\User")
+    * @ORM\JoinColumn(nullable=false)
+    */
+    private $user;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="avatar", type="string", length=255)
+     */
+    private $avatar;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="disabled", type="boolean")
+     */
+    private $disabled;
+
+    private $file;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Parametre
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     * @return Parametre
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Resoma\UserBundle\Entity\User $user
+     * @return Parametre
+     */
+    public function setUser(\Resoma\UserBundle\Entity\User $user)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Resoma\UserBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setFile($file){
+        $this->file = $file;
+        return $this;
+    }
+
+    public function getFile(){
+        return $this->file;
+    }
+
+    public function upload()
+    {
+        if (null === $this->file) {
+          return;
+        }
+        //$taille = getImageSize($this->file);
+        $name = $this->file->getClientOriginalName();
+        $this->file->move($this->getUploadRootDir(), $name);
+        $this->avatar = $name;
+    }
+
+    public function getUploadDir()
+    {
+      // On retourne le chemin relatif vers l'image pour un navigateur
+      return 'avatar/'.$this->user->getId();
+    }
+
+    protected function getUploadRootDir()
+    {
+      // On retourne le chemin relatif vers l'image pour notre code PHP
+      return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return Parametre
+     */
+    public function setDisabled($disabled)
+    {
+        $this->disabled = $disabled;
+
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getDisabled()
+    {
+        return $this->disabled;
+    }
+}

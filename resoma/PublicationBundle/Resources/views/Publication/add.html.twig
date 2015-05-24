@@ -1,0 +1,72 @@
+{% if publications is defined %}
+<section id='formUpdate'>
+{% else %}
+<section id='formPubli'>
+{% endif %}
+	<form id='formulairePublication' action="{% if publications is defined %} {{ path("resoma_publication_update", {"publication": publications.id}) }} 
+	   			  {% else %} {{ path("resoma_publication_add") }} {% endif %}" method="post" {{ form_enctype(form) }}>
+	     		  {{ form_widget(form) }}
+	    {% if publications is defined %}
+	    {% else %}
+	    	<label for='liste'>Liste : </label><input type='text' id='liste' name='liste' autocomplete='off' />
+	    	<section id='results'>
+	    	</section>
+	    {% endif %}
+	    <input type="submit" class="btn btn-primary" {% if publications is defined %} value='Modifier'
+	   			  {% else %} value='Poster' {% endif %} id='boutonPubli' />
+	</form>
+	<section id='zoneMedia'>
+	</section>
+</section>
+
+<script>
+	$(document).ready(function(){
+
+		var loader = 'http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif';	
+
+		var temp = '';
+		var result = '';
+
+		$('#formPubli').css('display', 'none');
+
+		$('#formUpdate [id*="lien"]').parent().css('display', 'none');
+		$('#formUpdate [id*="categorie"]').parent().css('display', 'none');
+
+		$("#liste").keyup(function(){
+			$field = $(this);
+			var taille = $field.val().length;
+			temp = temp + $field.val().charAt(taille-1);			
+			if($field.val().charAt(taille-1) == ';'){
+				temp = '';
+				result = $field.val();
+			}			    		
+    		if( temp.length > 1 )
+		    {		
+		      $('#results').html('<img src='+ loader +' style="width:32px; height:32px;" >');
+		      $.ajax({
+		  		type : 'POST', 
+				url : "{{ path('resoma_liste_readone')}}", 
+				data : 'nom='+temp, 	
+				success : function(data){ 	
+					$('#results').html(data);				
+				}
+		      });
+		    }
+		});
+
+		$("#boutonPubli").click(function(){
+			$('#boutonPubli').attr('disabled', 'disabled');
+			$('#formulairePublication').submit();
+
+		});
+
+
+		$("#boutonPubliPublication").click(function(){
+			$('#boutonPubli').attr('disabled', 'disabled');
+			$('#formulairePublication').submit();
+
+		});
+		
+	});	
+</script>
+

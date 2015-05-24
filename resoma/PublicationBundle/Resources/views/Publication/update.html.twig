@@ -1,0 +1,5 @@
+{% if type == 'publication' %}
+	{{ render(controller("ResomaPublicationBundle:Publication:update", {'publication' : objet})) }}
+{% else %}
+	{{ render(controller("ResomaPublicationBundle:Commentaire:update", {'commentaire' : objet})) }}
+{% endif %}

@@ -1,0 +1,100 @@
+<section id='zonePublication'>
+	<button id='publier'>Publier</button>
+	<button id='publierMedia'>Ajouter media</button>
+	{{ render(controller("ResomaPublicationBundle:Publication:add")) }}	
+		
+	{{ render(controller("ResomaPublicationBundle:Media:add")) }}
+</section>
+<!--<section>
+	{{ render(controller("ResomaPublicationBundle:Liste:add")) }}
+</section>-->
+
+<script>
+	
+
+	$(document).ready(function(){
+
+		var loader = 'http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif';
+
+		var switchPubli = false;
+		var switchMedia = false;
+
+		function getMedia(type){
+			var DATA = 'type=' + type;
+			$('#zoneMedia').html('<img src='+ loader +' style="width:32px; height:32px;" >');
+			$.ajax({
+			    url: "{{ path('resoma_media_read')}}",
+			    type: 'POST',
+			    data: DATA, 
+			    cache: false,
+			    success : function(data){
+			        $('#zoneMedia').html(data);
+			    }
+			});	
+		}
+
+		$("#publier").click(function(){
+			if(!switchPubli){
+				$('#formPubli').css('display', 'inline-block');
+				$('#formImage').css('display', 'none');
+				switchPubli = true;
+				switchMedia = false;
+			}
+			else{
+				$('#formPubli').css('display', 'none');
+				switchPubli = false;
+			}
+		});
+
+		$("#publierMedia").click(function(){
+			if(!switchMedia){
+				$('#formImage').css('display', 'inline-block');
+				$('#formPubli').css('display', 'none');
+				switchMedia = true;
+				switchPubli = false;
+			}
+			else{
+				$('#formImage').css('display', 'none');
+				switchMedia = false;
+			}
+			
+		});	
+
+
+		$('#formPubli select').change(function(){
+			if($('#formPubli select').val() == '2'){
+				getMedia('image');					
+				$('#boutonPubli').attr('disabled', 'disabled');
+				$('[id*="lien"]').parent().css('display', 'none');
+			}
+			else if($('#formPubli select').val() == '3'){
+				$('#zoneMedia').html('');
+				$('[id*="lien"]').val("Copiez le lien Youtube ici");
+				$('[id*="lien"]').css('color', '#aaa');
+				$('[id*="lien"]').parent().css('display', 'block');			
+				$('#boutonPubli').removeAttr('disabled');			
+			}
+			else if($('#formPubli select').val() == '4'){
+				getMedia('audio');		
+				$('#boutonPubli').attr('disabled', 'disabled');
+				$('[id*="lien"]').parent().css('display', 'none');
+			}
+			else if($('#formPubli select').val() == '5'){	
+				getMedia('divers');		
+				$('#boutonPubli').attr('disabled', 'disabled');
+				$('[id*="lien"]').parent().css('display', 'none');
+			}
+			else{
+				$('#zoneMedia').html('');
+				$('[id*="lien"]').parent().css('display', 'none');			
+				$('#boutonPubli').removeAttr('disabled');
+			}
+		});
+
+		
+
+		$('[id*="lien"]').focus(function(){			
+			$('[id*="lien"]').val("");
+		});
+	});
+</script>

@@ -1,0 +1,74 @@
+<section id='commentaires'>
+{{ render(controller("ResomaPublicationBundle:Commentaire:add", {'type' : 'publication', 'objet': objet })) }}
+{% for commentaire in commentaires %}
+	<article id='commentaire'>
+		{% if (self == commentaire.auteur) or is_granted('ROLE_ADMIN') %}
+		<div id='boutonAuteur'>
+			<button id='{{ commentaire.id }}' class='update'>Modifier</button>
+			<button id='{{ commentaire.id }}' class='delete'>X</button>
+		</div>
+		{% endif %}
+		<a href='{{ path("resoma_profil_profil", {"user": commentaire.auteur.id }) }}' id='auteur'>
+			<img src='{{ asset(commentaire.auteur.avatar) }}' class='miniAvatar'>
+			<span>{{ commentaire.auteur.username }}</span>
+		</a>
+		<p id='textePubli'>{{ commentaire.texte|raw }}</p>
+		<p id='datePubli' title='{{ commentaire.datePubli|date("d/m/Y h:i:s") }}'>{{ commentaire.datePubli|date("d/m/Y") }}</p>
+		<div style='clear:both'></div>
+		{# <a href="{{ path("resoma_commentaire_add", {"type": "commentaire", "objet": commentaire.id }) }}">Commenter</a #}
+	</article>
+	<div class='zoneUpdate' id='updateCommentaire{{ commentaire.id }}'>
+	</div>
+{% endfor %}
+</section>
+
+<script>
+	$(document).ready(function(){
+
+		var arrayUpdate = new Array();
+
+		var loader = 'http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif';	
+
+		$("#commentaire .delete").click(function(){
+			var commentaire = $(this).attr('id');
+			var DATA = 'commentaire=' + commentaire;
+			$.ajax({
+				url: "{{ path('resoma_commentaire_delete')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false
+		    });
+		    $(this).parent().parent().remove();
+		});
+
+		$("#commentaire .update").click(function(){
+			var commentaire = $(this).attr('id');			
+			var zone = '#updateCommentaire'+commentaire;
+			var key = 'k' + commentaire;
+			if(arrayUpdate[key] == undefined){
+				arrayUpdate[key] = false;
+			}
+			if(!arrayUpdate[key]){
+				var DATA = 'objet=' + commentaire + '&type=commentaire';
+				$(zone).html('<img src='+ loader +'>');
+				$.ajax({
+					url: "{{ path('resoma_publication_render')}}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+				    success : function(data){			    	
+				        $(zone).html(data);
+				        arrayUpdate[key] = true;
+					}
+			    });
+			}
+			else{
+		    	$(zone).html('');
+		    	arrayUpdate[key] = false;
+		    }
+			
+		});
+
+
+	});
+</script>

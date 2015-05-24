@@ -1,0 +1,10 @@
+body{
+	font-family: verdana;
+	background: #ccc;
+	margin: 0;
+}
+
+#contenu, #barre nav{
+	width: 1000px;
+	margin: 0 auto;
+}

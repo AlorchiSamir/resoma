@@ -1,0 +1,64 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}Chat{% endblock %}
+
+{% block contenu %}
+	<section id='zoneChat'>
+		<section id='zoneMessage'>
+		</section>	
+		{{ include('ResomaChatBundle:Message:add.html.twig') }}
+	</section>
+
+<script>
+	$(document).ready(function(){
+
+		function afficheMessage(){
+			var DATA = 'lol=lol';
+			$.ajax({
+				url: "{{ path('resoma_chat_read')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false,
+			    success : function(data){
+			        $('#zoneMessage').html(data);
+				}
+		    });
+		}
+
+		afficheMessage();
+		setInterval(afficheMessage, 2000);		
+
+		$("#ajouterMessage").click(function(){
+			var texte = $('#texte').val();
+			var DATA = 'texte=' + texte;
+			$.ajax({
+				url: "{{ path('resoma_chat_add')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false
+		    });	 
+		    afficheMessage();
+		    $('#texte').val('')   
+		});		
+
+		$('#texte').keyup(function(e) {  
+		 	if(e.keyCode == 13) {  
+	   			var texte = $('#texte').val();
+				var DATA = 'texte=' + texte;
+				$.ajax({
+					url: "{{ path('resoma_chat_add')}}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false
+			    });	 
+			    afficheMessage();
+			    $('#texte').val('');
+			}
+		});	
+
+
+	});
+</script>
+
+{% endblock %}
+

@@ -1,0 +1,104 @@
+resoma_publication_read:
+    path:     /publication
+    defaults: { _controller: ResomaPublicationBundle:Publication:read }
+
+resoma_publication_readTri:
+    pattern:     /publication/tri
+    defaults: { _controller: ResomaPublicationBundle:Publication:readTri }
+    requirements:
+        _method: POST       
+
+resoma_publication_add:
+    path:     /publication/add
+    defaults: { _controller: ResomaPublicationBundle:Publication:add }
+
+resoma_publication_delete:
+    pattern:     /publication/delete
+    defaults: { _controller: ResomaPublicationBundle:Publication:delete }
+    requirements:
+        _method: POST
+
+resoma_publication_readone:
+    path:     /publication/{publication}
+    defaults: { _controller: ResomaPublicationBundle:Publication:readone }
+
+resoma_publication_update:
+    path:     /publication/update/{publication}
+    defaults: { _controller: ResomaPublicationBundle:Publication:update }
+
+resoma_publication_render:
+    pattern:     /render
+    defaults: { _controller: ResomaPublicationBundle:Publication:render }
+    requirements:
+        _method: POST
+
+resoma_publication_feed:
+    pattern:     /rss
+    defaults: { _controller: ResomaPublicationBundle:Publication:feed }
+
+resoma_media_read:
+    pattern:     /media
+    defaults: { _controller: ResomaPublicationBundle:Media:read }
+    requirements:
+        _method: POST
+
+resoma_media_add:
+    path:     /media/add
+    defaults: { _controller: ResomaPublicationBundle:Media:add }
+
+resoma_commentaire_read:
+    pattern:  /commentaire
+    defaults: { _controller: ResomaPublicationBundle:Commentaire:read }
+    requirements:
+        _method: POST
+
+resoma_commentaire_add:
+    path:     /commentaire/add/{type}/{objet}
+    defaults: { _controller: ResomaPublicationBundle:Commentaire:add }
+
+resoma_commentaire_update:
+    path:     /commentaire/update/{commentaire}
+    defaults: { _controller: ResomaPublicationBundle:Commentaire:update }
+
+resoma_commentaire_delete:
+    pattern:  /commentaire/delete
+    defaults: { _controller: ResomaPublicationBundle:Commentaire:delete }
+    requirements:
+        _method: POST
+
+resoma_approbation_add:
+    pattern:  /approbation
+    defaults: { _controller: ResomaPublicationBundle:Approbation:add }
+    requirements:
+        _method: POST
+
+resoma_approbation_delete:
+    pattern:     /approbation/delete
+    defaults: { _controller: ResomaPublicationBundle:Approbation:delete }
+    requirements:
+        _method: POST
+
+resoma_liste_readone:
+    pattern:  /liste/readone
+    defaults: { _controller: ResomaPublicationBundle:Liste:readOne }
+    requirements:
+        _method: POST
+
+resoma_liste_read:
+    path:     /liste/{liste}
+    defaults: { _controller: ResomaPublicationBundle:Liste:read }
+
+resoma_liste_readListe:
+    path:     /liste
+    defaults: { _controller: ResomaPublicationBundle:Liste:readListe }
+
+resoma_liste_add:
+    path:     /liste/add
+    defaults: { _controller: ResomaPublicationBundle:Liste:add }
+
+resoma_liste_lier:
+    path:     /liste/lier/{liste}
+    defaults: { _controller: ResomaPublicationBundle:Liste:lier }
+
+
+

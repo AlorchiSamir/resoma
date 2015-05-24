@@ -1,0 +1,299 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}Publication{% endblock %}
+
+{% block contenu %}
+
+<section id='zonePubli'>
+	<article id='publication' class='publication'>
+			<header>
+				<a href='{{ path("resoma_profil_profil", {"user": publication.auteur.id }) }}' id='auteur'>
+					<img src='{{ asset(publication.auteur.avatar) }}' class='miniAvatar'>
+					<span>{{ publication.auteur.username }}</span>
+				</a>
+				<h3><a href='{{ path("resoma_publication_readone", {"publication": publication.id }) }}'>
+					{{ publication.titre }}
+				</a></h3>
+				<span class='score'>{{ publication.score }}</span>
+				<div id='zoneApprouve'>
+					{% if publication.approuve == 0 %}
+						<input type="hidden" id='approuve' name='approuve' value="0">
+						<span id='approuve{{ publication.id }}' style="display: inline-block">
+							<button id='{{ publication.id }}' class='approuver'>+</button>
+						</span>
+						<span id='desapprouve{{ publication.id }}' style="display: none">
+							<button id='{{ publication.id }}' class='desapprouver'>-</button>	
+						</span>
+					{% else %}
+						<input type="hidden" id='approuve' name='approuve' value="1">	
+						<span id='approuve{{ publication.id }}' style="display: none">
+							<button id='{{ publication.id }}' class='approuver'>+</button>
+						</span>
+						<span id='desapprouve{{ publication.id }}' style="display: inline-block">
+							<button id='{{ publication.id }}' class='desapprouver'>-</button>	
+						</span>
+					{% endif %}	
+				</div>		
+			</header>
+			<section>				
+				<p id='textePubli'>{{ publication.texte|raw }}</p>
+				{% if publication.categorie.id == 2 %}
+					<a href='{{ publication.lien }}' class='toolTipGallery'>
+						<img src="{{ asset(publication.lien) }}" class='image' />
+					</a>
+				{% elseif publication.categorie.id == 3 %}
+					<iframe src="http://www.youtube.com/embed/{{ publication.lien }}" width="640" height="385"></iframe>
+				{% elseif publication.categorie.id == 4 %}
+					<audio src="{{ asset(publication.lien) }}" controls="controls">
+	  					Votre navigateur ne supporte pas l'élément <code>audio</code>.
+					</audio>
+				{% elseif publication.categorie.id == 5 %}
+					<a href='{{ asset(publication.lien) }}'>Télécharger</a>
+				{% endif %}
+			</section>
+			<footer>				
+				{% if publication.liste == 'vide' %}
+				{% else %}	
+					<span id='listes'>Liste(s) : </span>
+					{% for liste in publication.liste %}	
+						<a href="{{ path("resoma_liste_read", {"liste": liste.id }) }}" class="liste">#{{ liste.nom }}</a>
+					{% endfor %}
+				{% endif %}						
+				<span id='datePubli' title='{{ publication.datePubli|date("d/m/Y h:i:s") }}'>{{ publication.datePubli|date("d/m/Y") }}</span>
+				{% if self or is_granted('ROLE_ADMIN') %}
+				<div id='boutonAuteur'>
+					<button id='{{ publication.id }}' class='update'>Modifier</button>	
+					<button id='{{ publication.id }}' class='delete'>X</button>	
+				</div>			
+				{% endif %}	
+			</footer>
+			<div class='zoneUpdate' id='update{{ publication.id }}'>
+			</div>			
+		</article>
+	<div>
+	    {{ render(controller("ResomaPublicationBundle:Commentaire:read",  {'objet' : publication.id})) }}
+	</div>
+</section>
+
+<script>
+	$(document).ready(function(){
+
+		var loader = 'http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif';	
+
+		var arrayPubli = new Array();
+		var arrayCommentaire = new Array();
+		var arrayUpdate = new Array();
+
+		$(".commenter").click(function(){
+			var publication = $(this).attr('id');
+			var DATA = 'objet=' + publication + '&type=publication';
+			$.ajax({
+				url: "{{ path('resoma_commentaire_add', {'type': 'publication', 'objet': "+ publication +" }) }}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false,
+				success : function(data){
+					var zone = '#ajout'+publication;
+			        $(zone).html(data);
+				}
+		    });
+		});
+
+		$(".reduire").click(function(){			
+			var publication = $(this).attr('id');
+			var key = 'k' + publication;
+			if(arrayPubli[key] == undefined){
+				arrayPubli[key] = false;
+			}	
+			var section = '#section'+publication;
+			var footer = '#footer'+publication;
+			var com = '#zonePubli #commentaire'+publication;
+			if(!arrayPubli[key]){
+				$(this).html('+');
+				$(section).css('display', 'none');
+				$(footer).css('display', 'none');
+				$(com).html('');
+				switchCommentaire = false;
+				arrayPubli[key] = true;
+			}
+			else{
+				$(this).html('-');				
+				$(section).css('display', 'block');
+				$(footer).css('display', 'block');
+				arrayPubli[key] = false;
+			} 
+		});
+
+		$(".approuver").click(function(){
+			var score = $(this).parent().parent().parent().children('.score');
+			var temp = score.html();
+			temp++;
+			score.html(temp);
+			var publication = $(this).attr('id');
+			var approuve = '#zonePubli #approuve'+publication;
+			var desapprouve = '#zonePubli #desapprouve'+publication;
+			var DATA = 'publication=' + publication;
+			$.ajax({
+				url: "{{ path('resoma_approbation_add')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false
+		    });
+		    $(desapprouve).css('display', 'inline-block');
+		    $(approuve).css('display', 'none');
+		});
+
+		$(".desapprouver").click(function(){
+			var score = $(this).parent().parent().parent().children('.score');
+			var temp = score.html();
+			temp--;
+			score.html(temp);
+			var publication = $(this).attr('id');
+			var approuve = '#zonePubli #approuve'+publication;
+			var desapprouve = '#zonePubli #desapprouve'+publication;
+			var DATA = 'publication=' + publication;
+			$.ajax({
+				url: "{{ path('resoma_approbation_delete')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false
+		    });
+		    $(desapprouve).css('display', 'none');
+		    $(approuve).css('display', 'inline-block');
+		});
+
+		$("#publication .delete").click(function(){
+			var c = confirm("Etes vous sûr de supprimer cette publication ?");
+			if(c == true){
+				var publication = $(this).attr('id');
+				var article = $(this).parent().parent().parent();
+				var DATA = 'publication=' + publication;
+				$.ajax({
+					url: "{{ path('resoma_publication_delete')}}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+				    complete : function(resultat, statut){
+				    	if(statut == 'success'){
+				    		article.remove();
+				    	}
+					}
+			    });	
+			}
+		    	    
+		});
+
+		$("#publication .update").click(function(){
+			var publication = $(this).attr('id');			
+			var zone = '#update'+publication;
+			var key = 'k' + publication;
+			if(arrayUpdate[key] == undefined){
+				arrayUpdate[key] = false;
+			}
+			if(!arrayUpdate[key]){
+				var DATA = 'objet=' + publication + '&type=publication';
+				$(zone).html('<img src='+ loader +'>');
+				$.ajax({
+					url: "{{ path('resoma_publication_render')}}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+				    success : function(data){			    	
+				        $(zone).html(data);
+				        arrayUpdate[key] = true;
+					}
+			    });
+			}
+			else{
+		    	$(zone).html('');
+		    	arrayUpdate[key] = false;
+		    }
+			
+		});
+
+		$("#zonePubli #publication .boutonCommentaire").click(function(){
+			var publication = $(this).attr('id');
+			var zone = '#zonePubli #commentaire'+publication;
+			var key = 'k' + publication;
+			if(arrayCommentaire[key] == undefined){
+				arrayCommentaire[key] = false;
+			}
+			if(!arrayCommentaire[key]){				
+				var DATA = 'publication=' + publication;				
+				$(zone).html('<img src='+ loader +'>');
+				$.ajax({
+					url: "{{ path('resoma_commentaire_read') }}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+					success : function(data){						
+				        $(zone).html(data);
+				        arrayCommentaire[key] = true;
+					}
+			    });
+		    }
+		    else{
+		    	$(zone).html('');
+		    	arrayCommentaire[key] = false;
+		    }
+		});
+
+		$('.tri').on('change', function(){
+			var user = $('#userId').val();
+			if($('.tri').val() == 'dateDesc'){
+				var DATA = 'type=dateDesc&user='+user;
+				$('#zonePubli #publications').html('<img src='+ loader +'>');	
+				$.ajax({
+					url: "{{ path('resoma_publication_readTri') }}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+					success : function(data){
+				        $('#zoneTri').html(data);
+					}
+		    	});
+			}
+			else if($('.tri').val() == 'score'){
+				var DATA = 'type=score&user='+user;
+				$('#zonePubli #publications').html('<img src='+ loader +'>');	
+				$.ajax({
+					url: "{{ path('resoma_publication_readTri') }}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+					success : function(data){
+				        $('#zoneTri').html(data);
+					}
+		    	});	
+			}
+			else if($('.tri').val() == 'commentaire'){
+				var DATA = 'type=commentaire&user='+user;
+				$('#zonePubli #publications').html('<img src='+ loader +'>');	
+				$.ajax({
+					url: "{{ path('resoma_publication_readTri') }}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+					success : function(data){
+				        $('#zoneTri').html(data);
+					}
+		    	});	
+			}
+			else if($('.tri').val() == 'dateAsc'){
+				var DATA = 'type=dateAsc&user='+user;
+				$('#zonePubli #publications').html('<img src='+ loader +'>');	
+				$.ajax({
+					url: "{{ path('resoma_publication_readTri') }}",
+					type: 'POST',
+					data: DATA, 
+				    cache: false,
+					success : function(data){
+				        $('#zoneTri').html(data);
+					}
+		    	});
+			}
+		});
+	});
+</script>
+
+{% endblock %}

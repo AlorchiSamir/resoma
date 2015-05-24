@@ -1,0 +1,32 @@
+<section id='messages'>
+{% for message in messages %}
+	<article class='message'>
+		<p><img src='{{ asset(message.auteur.avatar) }}' class='miniAvatar'>
+			<span class='pseudoMessage'>{{ message.auteur.username }}</span>
+			<span class='texteMessage'>{{ message.texte }}</span>
+			<span class='dateMessage'>{{ message.dateEnvoi }}</span>
+			{% if is_granted('ROLE_ADMIN') %}
+				<button id='{{ message.id }}' class='delete'>X</button>
+			{% endif %}
+		</p>
+	</article>
+{% endfor %}
+</section>
+
+<script>
+	$(document).ready(function(){	
+
+		$(".message .delete").click(function(){
+			var message = $(this).attr('id');
+			var DATA = 'message=' + message;
+			$.ajax({
+				url: "{{ path('resoma_chat_delete')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false
+		    });
+		    $(this).parent().parent().remove();
+		});
+
+	});
+</script>

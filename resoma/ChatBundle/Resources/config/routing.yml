@@ -1,0 +1,21 @@
+resoma_chat_index:
+    path:     /chat
+    defaults: { _controller: ResomaChatBundle:Message:index }
+
+resoma_chat_read:
+    pattern:     /chat/read
+    defaults: { _controller: ResomaChatBundle:Message:read }
+    requirements:
+        _method: POST
+
+resoma_chat_add:
+    pattern:     /chat/add
+    defaults: { _controller: ResomaChatBundle:Message:add }
+    requirements:
+        _method: POST
+
+resoma_chat_delete:
+    pattern:     /chat/delete
+    defaults: { _controller: ResomaChatBundle:Message:delete }
+    requirements:
+        _method: POST

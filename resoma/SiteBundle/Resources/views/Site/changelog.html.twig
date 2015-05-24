@@ -1,0 +1,64 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}Resoma - Changelog{% endblock %}
+  
+{% block contenu %}
+	<section id='contenu'>
+		<section id='sectionLog'>
+			<h1>Journal Log</h1>
+
+			<p><b>Message important :</b> Losqu'on tri les publications, il n'y a plus moyen de les supprimer/modifier/commenter/approuver (tant qu'on ne recharge pas la page), je n'ai AUCUNE EXPLICATION à ce phénomène (PHP : 0%, HTML : 0%, Javascript : 10%, Autres : 90%). Donc inutile de le reporter, je finirais bien par trouver une solution.</p>
+
+			<p><b>Message important 2 :</b> Je ne vais plus trop toucher au site pour le moment, car je dois commencer mon rapport. L'alpha continue, donc continuer de reporter les bugs/choses bizarres. Les bugs seront evidemment corrigés le plus vite possible.</p>
+
+			<p>Merci !</p>
+
+			<h2>15 décembre 2014</h2>
+			<ul>
+				<li>Les listes et users affichés sur le volet de gauche sont limités à 10.</li>
+				<li>Au survol des dates des publications, on peut voir l'heure précise.</li>
+				<li>Cliquez sur un pseudo dans la page abonnement mène au profil de cette personne (et plus aux votre).</li>
+				<li>Refonte graphique du bouton 'approuver'.</li>
+			</ul>
+			<h2>14 décembre 2014</h2>
+			<ul>
+				<li>Ajout d'un bouton abonné/désabonné dans la page abonnements.</li>
+				<li>Petite refonte graphique (en cours).</li>	
+			</ul>
+			<h2>13 décembre 2014</h2>
+			<ul>
+				<li>Ajout d'un volet à droite de l'accueil qui affiche toutes les dernières publications.</li>
+				<li>On voit le nombre de commentaires sur le bouton qui permet de les afficher.</li>
+				<li>Les listes affichés sur le volet gauche sont triées par popularité (nombre de publications attachées).</li>
+				<li>Debugage du chat.</li>
+				<li>On peut voir notre Avatar lorsque nous sommes sur notre propre profil.</li>
+				<li>On peut, à présent, trier les publications selon le nombre de commentaire ou à partir des plus anciennes.</li>
+			</ul>
+			<h2>12 décembre 2014</h2>
+			<ul>
+				<li>On peut ajouter un message sur le chat en appuyant sur 'enter' sans que cela bug.</li>
+				<li>Ajout d'une demande de confirmation avant la suppression d'une publication.</li>
+				<li>Ajout d'une page 'abonnements' qui affiche tous les profils auxquels on est abonnés (accessible depuis 'options')</li>
+				<li>Ajout d'un message de confirmation après un changement de paramètre.</li>
+			</ul>
+			<h2>11 décembre 2014</h2>
+			<ul>
+				<li>On peut trier les publications par date ou par score.</li>
+				<li>Petite refonte du menu avec menu deroulant pour les options.</li>
+				<li>Intégration du chat.</li>
+			</ul>			
+			<h2>10 décembre 2014</h2>
+			<ul>
+				<li>On ne peut plus supprimer/modifier la publication d'un autre. Ni dans les pages de liste, ni en manipulant le code HTML.</li>
+				<li>Lorsqu'on supprime la dernière publication d'une liste, la liste s'efface de la BD.</li>
+				<li>Lors de la création de liste, supprime les espaces et les caractères spéciaux. ('$ lo#l' devient 'lol').</li>
+				<li>Correction affichages des avatars sur le profil et les commentaires.</li>
+				<li>Le fait de mettre une description sans uploader un avatar ne cause plus d'erreur.</li>
+				<li>On ne peut plus insérer de balise HTML/JS dans les publications ou les commentaires.</li>
+				<li>On peut upload les vidéo depuis le début, mais mon herbergeur par sécurité redirige les http:// vers une erreur. Il faut donc c/c le lien youtube à partir de 'www' ou de 'youtube'.</li>
+				<li>Les noms de liste et d'utilisateurs de la barre latérale ne dépassent plus lorsqu'ils sont trop longs.</li>
+			</ul>
+		</section>
+	</section>
+	
+{% endblock %}

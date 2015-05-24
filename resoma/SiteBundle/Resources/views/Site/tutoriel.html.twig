@@ -1,0 +1,58 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}{% if nombreNotif > 0 %}({{ nombreNotif }}) {% endif %}Resoma{% endblock %}
+
+{% block contenu %}
+	<section id='zoneTuto'>
+		<h2>Tutoriel</h2>
+		<img id='imageTuto' src="{{ asset('ressources/tuto1.png') }}" height="540" width="1200" >
+		<section id='bouton'>
+			<button id='previous'>Précédent</button>
+			<button id='next'>Suivant</button>
+			<a href='{{ path("resoma_site_accueil") }}' id='skip'>Ignorer</a>
+		</section>
+		<div style='clear:both' />
+	</section>
+
+
+
+<script>
+	$(document).ready(function(){
+
+		var step = 1;
+
+		$('#previous').css('background', '#ecf0f1');
+		$('#previous').attr('disabled', 'disabled');
+
+		$("#next").click(function(){
+			var imagePrev = 'tuto' + step;
+			var href = $('#imageTuto').attr('src');
+			step++;
+			if(step == 2){
+				$('#next').css('background', '#ecf0f1');
+				$('#next').attr('disabled', 'disabled');
+			}
+			var image = href.replace(imagePrev, 'tuto' + step);
+			$('#imageTuto').attr("src", image);
+			$('#previous').css('background', '#27ae60');
+			$('#previous').removeAttr('disabled');
+		});	
+
+		$("#previous").click(function(){
+			var imageNext = 'tuto' + step;
+			var href = $('#imageTuto').attr('src');
+			step--;
+			if(step == 1){
+				$('#previous').css('background', '#ecf0f1');
+				$('#previous').attr('disabled', 'disabled');
+			}
+			var image = href.replace(imageNext, 'tuto' + step);
+			$('#imageTuto').attr("src", image);
+			$('#next').css('background', '#27ae60');
+			$('#next').removeAttr('disabled');
+		});	
+
+		
+	});
+</script>
+{% endblock %}

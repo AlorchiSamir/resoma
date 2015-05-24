@@ -1,0 +1,15 @@
+resoma_site_index:
+    path:     /
+    defaults: { _controller: ResomaSiteBundle:Site:index }
+
+resoma_site_accueil:
+    path:     /accueil
+    defaults: { _controller: ResomaSiteBundle:Site:accueil }
+
+resoma_site_tuto:
+    path:     /tuto
+    defaults: { _controller: ResomaSiteBundle:Site:tuto }
+
+resoma_site_log:
+    path:     /log
+    defaults: { _controller: ResomaSiteBundle:Site:log }

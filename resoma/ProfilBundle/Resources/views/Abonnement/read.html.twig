@@ -1,0 +1,23 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}Abonnements{% endblock %}
+
+{% block contenu %}	
+
+
+<h1>Vos abonnements</h1>
+{% for abonnement in abonnements %}
+	<article id='abonnement'>
+		{{ render(controller("ResomaProfilBundle:Abonnement:bouton", {'user' : abonnement.user2 })) }}
+		<img src='{{ asset(abonnement.user2.avatar) }}' class='avatarAbo'>
+		<h3><a href="{{ path("resoma_profil_profil", {"user": abonnement.user2.id }) }}">{{ abonnement.user2.username }}</a></h3>
+		{% if abonnement.user2.description == '' %}
+			<p>Aucune description</p>
+		{% else %}
+			<p>{{ abonnement.user2.description }}</p>	
+		{% endif %}	
+		
+	</article>
+{% endfor %}
+
+{% endblock %}

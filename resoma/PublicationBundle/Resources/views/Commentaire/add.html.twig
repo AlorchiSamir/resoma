@@ -1,0 +1,19 @@
+<section id='zoneUpdate'>
+	<form id='formulaireCommentaire' action="{% if commentaires is defined %} {{ path("resoma_commentaire_update", {"commentaire": commentaires.id}) }} 
+	   			  {% else %} {{ path("resoma_commentaire_add", {"type": type, "objet": objet }) }} {% endif %}" id='formCommentaire' method="post" {{ form_enctype(form) }}>
+	     		  {{ form_widget(form) }}
+	    <input type="submit" class="btn btn-primary" {% if commentaires is defined %} value="Modifier" 
+	   			  {% else %} value="Envoyer" {% endif %} id='boutonPubliCom' />
+	</form>
+</section>
+
+<script>
+	$(document).ready(function(){
+
+		$("#boutonPubliCom").click(function(){
+			$('#boutonPubliCom').attr('disabled', 'disabled');
+			$('#formulaireCommentaire').submit();
+
+		});
+	});	
+</script>

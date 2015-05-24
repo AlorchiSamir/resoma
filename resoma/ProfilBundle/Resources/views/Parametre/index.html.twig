@@ -1,0 +1,16 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}Parametre{% endblock %}
+
+{% block contenu %}
+	<section id='zoneParametre'>
+		{% if change %}
+			<p id='change'>Nouveaux paramètres enregistrés</p>
+		{% endif %}
+		<h2>Parametres</h2>
+		<form action='{{ path("resoma_parametre_index") }}' method="post" {{ form_enctype(form) }}>
+	     	{{ form_widget(form) }}	 
+	    	<input type="submit" class="btn btn-primary" value="Ajouter" id='boutonPubli' />
+		</form>
+	</section>	
+{% endblock %}

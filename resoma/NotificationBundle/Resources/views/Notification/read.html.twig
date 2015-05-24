@@ -1,0 +1,9 @@
+{% if notifications is empty %}
+	<p>Aucune nouvelle notification</p>
+{% else %}
+<ul>
+	{% for notification in notifications %}
+		<li>{{ notification.texte|raw }}</li>
+	{% endfor %}
+</ul>
+{% endif %}

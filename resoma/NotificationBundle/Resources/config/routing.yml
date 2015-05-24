@@ -1,0 +1,3 @@
+resoma_notification_read:
+    path:     /notification
+    defaults: { _controller: ResomaNotificationBundle:Notification:read }

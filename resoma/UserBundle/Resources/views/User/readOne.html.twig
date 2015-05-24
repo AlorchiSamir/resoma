@@ -1,0 +1,8 @@
+{% for user in users %}
+	<article id='user'>
+		<a href='{{ path("resoma_profil_profil", {"user": user.id }) }}'>
+			<span id='username'>{{ user.username }}</span>
+			<span id='lastConnexion'>{{ user.derniereConnexion }}</span>
+		</a>				
+	</article>
+{% endfor %}

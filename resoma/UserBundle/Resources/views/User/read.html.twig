@@ -1,0 +1,46 @@
+<h3>Utilisateurs</h3>
+<input type='text' id='searchUser'>
+<section id='resultUser'>
+{% for user in users %}
+	<article id='user'>
+		<a href='{{ path("resoma_profil_profil", {"user": user.id }) }}'>
+			<span id='username'>{{ user.username }}</span><!--
+			--><span id='lastConnexion'>{{ user.derniereConnexion }}</span>
+		</a>				
+	</article>
+{% endfor %}
+</section>
+
+<script>
+$(document).ready(function(){
+
+	var flag = false;
+
+	var loader = 'http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif';
+
+	$("#searchUser").keyup(function(){
+		$field = $(this);    
+	    if( $field.val().length > 0 )
+		{	
+			if(!flag){
+				temp = $('#resultUser').html();
+				flag = true;
+			}
+			$('#resultUser').html('<img src='+ loader +' style="width:32px; height:32px;" >');	
+		    // on envoie la valeur recherché en GET au fichier de traitement
+		    $.ajax({
+		 		type : 'POST', // envoi des données en GET ou POST
+				url : "{{ path('resoma_user_readone')}}", // url du fichier de traitement
+				data : 'nom='+$(this).val(), // données à envoyer en  GET ou POST				
+				success : function(data){ // traitements JS à faire APRES le retour d'ajax-search.php	
+					$('#resultUser').html(data); // affichage des résultats dans le bloc					
+				}
+		    });
+		}
+		else{
+			$('#resultUser').html(temp);
+			flag = false;
+		}
+	});
+});
+</script>

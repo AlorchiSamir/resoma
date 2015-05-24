@@ -1,0 +1,25 @@
+{# src/Resoma/UserBundle/Resources/views/Security/login.html.twig #}
+
+{% extends "::main.html.twig" %}
+
+{% block title %}Bienvenue sur Resoma{% endblock %}
+  
+{% block body %}
+	<header id='entete'>
+		<nav>
+			<img id='logo' src="{{ asset('ressources/logo2.png') }}" height="28" width="28" >
+			<h1 id='resoma'>Bienvenue sur Resoma</h1>
+			{{ render(controller("ResomaUserBundle:Security:login")) }}
+		</nav>
+	</header>
+	<section id='contenu'>
+		<section id='aside'>
+		</section>
+		<section id='sectionForm'>
+			<h2>Inscription</h2>
+			{{ render(controller("FOSUserBundle:Registration:register")) }}
+		</section>
+	</section>
+	
+{% endblock %}
+        

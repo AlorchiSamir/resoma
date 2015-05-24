@@ -1,0 +1,71 @@
+<section id='collection{{ type|capitalize }}'>
+	<h3>{{ type|capitalize }}</h3>
+	{% if medias is empty %}
+		<p>Aucun media à afficher</p>
+	{% else %}
+		{% for media in medias %}
+			{% if media.type == 'image' %}
+				<a href='#' id='{{ media.source }}' class='miniature'>
+					<img src="{{ asset(media.source) }}" class='mini' title="{{ media.titre }}" />
+				</a>
+			{% elseif media.type == 'audio' %}
+				<a href='#' id='{{ media.source }}' class='audio'>
+					<span>{{ media.titre }}</span>	
+					<audio src="{{ asset(media.source) }}" controls="controls">
+		  				Votre navigateur ne supporte pas l'élément <code>audio</code>.
+					</audio>
+				</a>
+				</br>
+			{% elseif media.type == 'divers' %}
+				<a href='#' id='{{ media.source }}'>
+					<span>{{ media.titre }} </span>
+				</a>
+			{% endif %}
+		{% endfor %}
+	{% endif %}
+</section>
+
+<script>
+	$(document).ready(function(){
+
+
+		var images = $('.mini');
+		var max = 100;
+
+		images.each(function () {
+			largeur = this.width;
+			hauteur = this.height;
+			proportion = largeur/hauteur;
+			if(largeur > hauteur){
+				this.width = max;
+				this.height = max/proportion;
+			}
+			else{
+				this.width = max*proportion;
+				this.height = max;
+			}			
+        });
+
+		$('#collectionImage a').click(function(){ 
+		  		$('[id*="lien"]').val($(this).attr('id'));
+		  		$('#collectionImage img').css('border', 'none');
+		  		$(this).children().css('border', '3px blue solid');
+		  		$('#boutonPubli').removeAttr('disabled');
+		});
+
+		$('#collectionAudio a').click(function(){ 
+	  		$('[id*="lien"]').val($(this).attr('id'));
+	  		$('#collectionAudio audio').css('border', 'none');
+	  		$(this).children('audio').css('border', '3px blue solid');
+	  		$('#boutonPubli').removeAttr('disabled');
+		});
+
+		$('#collectionDivers a').click(function(){ 
+	  		$('[id*="lien"]').val($(this).attr('id'));
+	  		$('#collectionDivers span').css('border', 'none');
+	  		$(this).children().css('border', '3px blue solid');
+	  		$('#boutonPubli').removeAttr('disabled');
+		});
+	});
+
+</script>

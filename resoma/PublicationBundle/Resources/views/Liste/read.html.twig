@@ -1,0 +1,24 @@
+{% for liste in listes %}
+	{% if lien is defined %}
+		<a href="{{ path("resoma_liste_read", {"liste": liste.id }) }}">#{{ liste.nom }}</a>
+	{% else %}
+		<div class='resultat'>{{ liste.nom }}</div>
+	{% endif %}
+{% endfor %}
+
+<script>
+	$(document).ready(function(){		
+
+		$(".resultat").click(function(){
+			var texte = $(this).html();	
+			var tab = $('#liste').val().split(';');
+			var taille = tab.length;
+			var temp = '';
+			for(i = 0; i < taille-1; i++){
+				temp = temp + tab[i] + ';';
+			}
+			$('#liste').val(temp + texte);
+			$(".resultat").parent().html('');
+		});
+	});	
+</script>

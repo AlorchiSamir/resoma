@@ -1,0 +1,40 @@
+<h3>Listes</h3>
+<input type='text' id='searchListe'>
+<section id='resultListe'>
+	{% include 'ResomaPublicationBundle:Liste:read.html.twig' with {'listes' : listes, 'lien' : 'lien'} %}
+</section>
+
+<script>
+$(document).ready(function(){
+
+	var flag = false;
+
+	var loader = 'http://www.nasa.gov/multimedia/videogallery/ajax-loader.gif';
+
+	$("#searchListe").keyup(function(){
+		$field = $(this);
+		var type = 'lien';    
+	    if( $field.val().length > 0 )
+		{	
+			if(!flag){
+				temp = $('#resultListe').html();
+				flag = true;
+			}
+			$('#resultListe').html('<img src='+ loader +' style="width:32px; height:32px;" >');	
+		    // on envoie la valeur recherché en GET au fichier de traitement
+		    $.ajax({
+		 		type : 'POST', // envoi des données en GET ou POST
+				url : "{{ path('resoma_liste_readone')}}", // url du fichier de traitement
+				data : 'nom='+$(this).val()+'&type='+type, // données à envoyer en  GET ou POST				
+				success : function(data){ // traitements JS à faire APRES le retour d'ajax-search.php	
+					$('#resultListe').html(data); // affichage des résultats dans le bloc					
+				}
+		    });
+		}
+		else{
+			$('#resultListe').html(temp);
+			flag = false;
+		}
+	});
+});
+</script>

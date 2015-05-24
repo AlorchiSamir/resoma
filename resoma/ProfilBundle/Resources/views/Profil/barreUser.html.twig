@@ -1,0 +1,29 @@
+<nav>
+	<ul id='menu'>
+		<li class='first'><img id='avatar' src='{{ asset(app.user.avatar) }}'></li><!--
+	--><li><a href="{{ path("resoma_profil_index") }}" class='lienMenu'>{{ app.user.username }}</a></li><!--
+	--><li><a href="{{ path("resoma_site_accueil") }}" class='lienMenu'>Accueil</a></li><!--
+	--><li>
+			<a href="{{ path("resoma_notification_read") }}" class='lienMenu'>Notifications</a>
+			{% if nombreNotif > 0 %}
+			<span id='nombreNotif'>{{ nombreNotif }}</span>
+			{% endif %}
+		</li><!--
+	--><li><a href="{{ path("resoma_chat_index") }}" class='lienMenu'>Chat</a></li><!--
+	--><li>
+			<a href="#" class='lienMenu'>Options</a>
+			<ul id='sousMenu'>
+				<li><a href="{{ path("resoma_parametre_index") }}">Paramètres</a></li><!--
+			--><li><a href="{{ path("resoma_abonnement_read") }}" >Abonnements</a></li><!--
+			--><li><a href="{{ path("resoma_site_tuto") }}" >Tutoriel</a></li><!--
+			--><li><a href="{{ path("resoma_site_log") }}" >Changelog</a></li><!--			
+			--><li><a href="{{ path("fos_user_security_logout") }}" >Déconnexion</a></li>
+			</ul>
+		</li>
+		{% if is_granted('ROLE_ADMIN') %}
+			<li><a href="" class='lienMenu'>Administration</a></li>
+		{% endif %}
+			
+	</ul>
+	<a id='logo' href="{{ path("resoma_site_accueil") }}" class='lienMenu'><img src="{{ asset('ressources/logo2.png') }}" height="28" width="28" ></a>
+</nav>

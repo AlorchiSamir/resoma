@@ -1,0 +1,11 @@
+resoma_user_read:
+    pattern:     /user
+    defaults: { _controller: ResomaUserBundle:User:read }
+    requirements:
+        _method: POST
+
+resoma_user_readone:
+    pattern:  /user/readone
+    defaults: { _controller: ResomaUserBundle:User:readOne }
+    requirements:
+        _method: POST

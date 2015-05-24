@@ -1,0 +1,9 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}Notification{% endblock %}
+
+{% block contenu %}	
+	<section id='zoneNotif'>	
+		{% include 'ResomaNotificationBundle:Notification:read.html.twig' with {'notifications' : notifications} %}
+	</section>
+{% endblock %}

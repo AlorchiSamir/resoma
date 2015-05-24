@@ -1,0 +1,22 @@
+{% extends "::main.html.twig" %}
+
+{% block title %}{{ app.user.username }}{% endblock %}
+  
+{% block body %}
+	<header id='barre'>
+		{{ render(controller("ResomaProfilBundle:Profil:barre")) }}
+	</header>
+	<section id='contenu'>	
+		{% block contenu %}	
+		{% endblock %}
+	</section>
+	<aside id='userListe'>
+		<section id='zoneUser'>
+			{{ render(controller("ResomaUserBundle:User:read")) }}
+		</section>
+		<section id='zoneListe'>
+			{{ render(controller("ResomaPublicationBundle:Liste:readListe")) }}
+		</section>
+	</aside>
+{% endblock %}
+

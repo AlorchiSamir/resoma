@@ -1,0 +1,23 @@
+resoma_profil_index:
+    path:     /profil
+    defaults: { _controller: ResomaProfilBundle:Profil:index }
+
+resoma_profil_profil:
+    path:     /profil/{user}
+    defaults: { _controller: ResomaProfilBundle:Profil:index }
+
+resoma_abonnement_add:
+    path:     /abonnement
+    defaults: { _controller: ResomaProfilBundle:Abonnement:add }
+
+resoma_abonnement_delete:
+    path:     /abonnement/delete
+    defaults: { _controller: ResomaProfilBundle:Abonnement:delete }
+
+resoma_abonnement_read:
+    path:     /abonnement/read
+    defaults: { _controller: ResomaProfilBundle:Abonnement:read }
+
+resoma_parametre_index:
+    path:     /parametre
+    defaults: { _controller: ResomaProfilBundle:Parametre:index }

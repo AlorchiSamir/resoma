@@ -1,0 +1,18 @@
+<section id='formImage'>
+	<form id='formulaireMedia' action="{{ path("resoma_media_add") }}" method="post" {{ form_enctype(form) }}>
+	     		  {{ form_widget(form) }}
+	    <input type="submit" class="btn btn-primary" value="Ajouter" id='boutonPubliMedia' />
+	</form>
+</section>
+
+<script>
+	$(document).ready(function(){
+		$('#formImage').css('display', 'none');
+
+		$("#boutonPubliMedia").click(function(){
+			$('#boutonPubliMedia').attr('disabled', 'disabled');
+			$('#formulaireMedia').submit();
+
+		});
+	});	
+</script>

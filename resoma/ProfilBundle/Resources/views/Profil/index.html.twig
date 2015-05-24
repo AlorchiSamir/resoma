@@ -1,0 +1,33 @@
+{% extends "ResomaProfilBundle::layout.html.twig" %}
+
+{% block title %}
+	{% if (nombreNotif is defined) and (nombreNotif > 0) %}({{ nombreNotif }}) {% endif %}{{ user.username }}
+  {% endblock %}
+
+{% block contenu %}
+	<section id='enteteProfil'>
+		<img src='{{ asset(user.avatar) }}' id='imgAbo'>
+		{% if self %}
+			{{ include('ResomaProfilBundle:Profil:publier.html.twig') }}		
+		{% else %}
+			{{ render(controller("ResomaProfilBundle:Abonnement:bouton", {'user' : user})) }}
+		{% endif %}	
+		<div style="clear:both"></div>
+		{% if description is defined %}
+			{% if description %}	
+				<section id='zoneDescription'>
+					<p>{{ description }}</p>
+				</section>
+			{% endif %}	
+		{% endif %}	
+	</section>
+		<section id='zonePubli'>
+			<h1>Publications</h1>
+			{{ include('ResomaPublicationBundle:Publication:tri.html.twig') }}
+			<div id='zoneTri'>
+			{{ render(controller("ResomaPublicationBundle:Publication:read", {'user' : user})) }}
+			</div>
+		</section>	
+
+{% endblock %}
+

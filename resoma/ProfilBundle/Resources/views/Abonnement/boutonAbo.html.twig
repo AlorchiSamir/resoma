@@ -1,0 +1,49 @@
+<section id="zoneAbo">
+	{% if acces %}
+		<input type="hidden" id='acces' name="acces" value="1">				
+	{% else %}
+		<input type="hidden" id='acces' name="acces" value="0">		
+	{% endif %}
+	<button id='{{ user.id }}' class='desabonnement'>Se désabonner</button>
+	<button id='{{ user.id }}' class='abonnement'>S'abonner à {{ user.username }}</button>
+</section>
+
+<script>
+	$(document).ready(function(){
+
+		if($('#acces').val() == '1'){
+			$('.abonnement').css('display', 'none');
+		}
+		else{
+			$('.desabonnement').css('display', 'none');
+		}
+
+		$("#zoneAbo .abonnement").click(function(){
+			var el = $(this);			
+			var user = $(this).attr('id');
+			var DATA = 'user=' + user;
+			$.ajax({
+				url: "{{ path('resoma_abonnement_add')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false
+		    });
+		    $(el).css('display', 'none');
+		    $(el).prev().css('display', 'block');
+		});
+
+		$("#zoneAbo .desabonnement").click(function(){
+			var el = $(this);			
+			var user = $(this).attr('id');
+			var DATA = 'user=' + user;
+			$.ajax({
+				url: "{{ path('resoma_abonnement_delete')}}",
+				type: 'POST',
+				data: DATA, 
+			    cache: false
+		    });
+		    $(el).next().css('display', 'block');
+		    $(el).css('display', 'none');
+		});
+	});
+</script>
